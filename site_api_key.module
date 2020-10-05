@@ -7,18 +7,18 @@ use Drupal\Core\Form\FormStateInterface;
  * Add New field 'Site API key' in Site information page.
  */
 function site_api_key_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state) {
-	// Add Site API Key field to 'Site Information' section
-	$site_api_key = \Drupal::config('site_api_key.settings')->get('siteapikey');
-	$form['site_information']['siteapikey'] = array(
-	  '#type' => 'textfield',
-		'#title' => t('Site API Key'),
-		'#default_value' => $site_api_key,
-		'#placeholder' => t('No API Key yet'),
-		'#description' => t('Custom field to set the API Key'),
-	);
+  //Add Site API Key field to 'Site Information' section
+  $site_api_key = \Drupal::config('site_api_key.settings')->get('siteapikey');
+  $form['site_information']['siteapikey'] = array(
+    '#type' => 'textfield',
+	'#title' => t('Site API Key'),
+	'#default_value' => $site_api_key,
+	'#placeholder' => t('No API Key yet'),
+	'#description' => t('Custom field to set the API Key'),
+  );
 		
-	// Change form submit button text to 'Update Configuration'
-	$form['actions']['submit']['#value'] = t('Update Configuration');
+  //Change form submit button text to 'Update Configuration'
+  $form['actions']['submit']['#value'] = t('Update Configuration');
 
   //Submit handler to store siteapikey value into site_api_key.setting
   $form['#submit'][] = 'custom_site_information_submit';	
@@ -26,13 +26,13 @@ function site_api_key_form_system_site_information_settings_alter(&$form, FormSt
 
 //function callback to store siteapikey value into site_api_key.setting
 function custom_site_information_submit(&$form, FormStateInterface $form_state) { 
-  // Update the system variable Site API Key
+  //Update the system variable Site API Key
   if(!empty( $form['site_information']['siteapikey']['#value'] )) {  
     \Drupal::configFactory()->getEditable('site_api_key.settings')
       ->set('siteapikey', $form['site_information']['siteapikey']['#value'])
       ->save();
 	
-	  //show message to inform user that site API key has been updated with the value.
+	//show message to inform user that site API key has been updated with the value.
     \Drupal::messenger()->addMessage('The Site API Key has been updated with the value - ' .
       $form['site_information']['siteapikey']['#value']);
   }

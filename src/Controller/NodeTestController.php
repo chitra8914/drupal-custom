@@ -19,21 +19,21 @@ class NodeTestController extends ControllerBase {
    * @return JsonResponse
    */
   public function nodetest($site_api_key, $nid) {
-    // Site API Key saved value
+    //Site API Key saved value
     $site_api_key_saved = \Drupal::config('site_api_key.settings')->get('siteapikey');
 		
-		// node load
-		$node = \Drupal\node\Entity\Node::load($nid);
+	//node load
+	$node = \Drupal\node\Entity\Node::load($nid);
 
-    // check whether node is of type page, the site api key is set and matches the supplied key
+    //check whether node is of type page, the site api key is set and matches the supplied key
     if(!empty($node) && $node->bundle() == 'page' && $site_api_key_saved != ''
       && $site_api_key_saved == $site_api_key) {
-      // Respond with the json representation of the node
+      //Respond with the json representation of the node
       return new JsonResponse($node->toArray(), 200, ['Content-Type'=> 'application/json']);
     } else {
-			// Respond with access denied
+	  //Respond with access denied
       return new JsonResponse(array("error" => "access denied"), 401,
         ['Content-Type'=> 'application/json']);
-		}
+	}
   }
 }
