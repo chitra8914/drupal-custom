@@ -1,0 +1,12 @@
+site_api_key.nodetest:
+  path: '/page_json/{site_api_key}/{nid}'
+  defaults:
+    _controller: '\Drupal\site_api_key\Controller\NodeTestController::nodetest'
+  options:
+    parameters:
+      site_api_key:
+        type: String
+      nid:
+        type: integer
+  requirements:
+    _permission: 'access content'
