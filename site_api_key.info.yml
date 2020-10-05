@@ -1,0 +1,8 @@
+name: Site API key
+type: module
+description: 'This module adds site API key to site information page and responds with a JSON representation of page type node.'
+package: Custom
+
+# Information added
+core: '8.x'
+project: 'custom'
