@@ -11,10 +11,10 @@ function site_api_key_form_system_site_information_settings_alter(&$form, FormSt
   $site_api_key = \Drupal::config('site_api_key.settings')->get('siteapikey');
   $form['site_information']['siteapikey'] = array(
     '#type' => 'textfield',
-	'#title' => t('Site API Key'),
-	'#default_value' => $site_api_key,
-	'#placeholder' => t('No API Key yet'),
-	'#description' => t('Custom field to set the API Key'),
+    '#title' => t('Site API Key'),
+    '#default_value' => $site_api_key,
+    '#placeholder' => t('No API Key yet'),
+    '#description' => t('Custom field to set the API Key'),
   );
 		
   //Change form submit button text to 'Update Configuration'
@@ -31,8 +31,8 @@ function custom_site_information_submit(&$form, FormStateInterface $form_state) 
     \Drupal::configFactory()->getEditable('site_api_key.settings')
       ->set('siteapikey', $form['site_information']['siteapikey']['#value'])
       ->save();
-	
-	//show message to inform user that site API key has been updated with the value.
+
+    //show message to inform user that site API key has been updated with the value.
     \Drupal::messenger()->addMessage('The Site API Key has been updated with the value - ' .
       $form['site_information']['siteapikey']['#value']);
   }
